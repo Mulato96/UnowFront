@@ -2,6 +2,10 @@
 
 Este proyecto se generó con [Angular CLI](https://github.com/angular/angular-cli) versión 14
 
+## Installation of dependencies
+
+Ejecute npm i para instalacion de dependencias.
+
 ## Development server
 
 Ejecute `ng serve` para un servidor de desarrollo. Navegue hasta `http://localhost:4200/`. La aplicación se recargará automáticamente si cambia alguno de los archivos fuente.

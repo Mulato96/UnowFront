@@ -18,6 +18,8 @@ import { RatingModule } from 'primeng/rating';
 import { ListaEmpleadosComponent } from './lista-empleados.component';
 import { ListaEmpleadosRoutingModule } from './lista-empleados-routing.module';
 import { DialogModule } from 'primeng/dialog';
+import { CalendarModule } from 'primeng/calendar';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
     imports: [
@@ -35,7 +37,9 @@ import { DialogModule } from 'primeng/dialog';
         DropdownModule,
         ProgressBarModule,
         ToastModule,
-        DialogModule
+        DialogModule,
+        CalendarModule,
+        PaginatorModule 
     ],
     declarations: [ListaEmpleadosComponent]
 })

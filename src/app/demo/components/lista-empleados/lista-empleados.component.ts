@@ -6,38 +6,28 @@ import { EmpleadoService } from 'src/app/demo/service/empleado.service';
 import { Empleado } from '../../api/empleado';
 
 
+
 @Component({
     templateUrl: './lista-empleados.component.html',
     providers: [MessageService, ConfirmationService],
-    styles: [`
-        :host ::ng-deep  .p-frozen-column {
-            font-weight: bold;
-        }
-
-        :host ::ng-deep .p-datatable-frozen-tbody {
-            font-weight: bold;
-        }
-
-        :host ::ng-deep .p-progressbar {
-            height:.5rem;
-        }
-    `]
+    styles: []
 })
 export class ListaEmpleadosComponent implements OnInit {
 
     empleados: Empleado[] = [];
 
-    statuses: any[] = [];
+    arrayPositions: any[] = [];
+
+    positions: any;
 
     products: Product[] = [];
 
     loading: boolean = true;
 
-    empleado: Empleado = {};    
+    empleado: Empleado = {};
 
     product: Product = {};
 
-    submitted: boolean = false;
 
     empleadoDialog: boolean = false;
 
@@ -48,19 +38,19 @@ export class ListaEmpleadosComponent implements OnInit {
     constructor(private empleadoService: EmpleadoService, private messageService: MessageService) { }
 
     ngOnInit() {
+
+        this.empleadoService.getPositions().subscribe(data => {
+            this.arrayPositions = data.positions;
+            this.positions = this.arrayPositions.map(item => ({ value: item, label: item }));
+        }, error => {
+            console.error('Error al obtener los datos:', error);
+        });
+
+
         this.empleadoService.getEmpleados().then(empleado => {
             this.empleados = empleado;
             this.loading = false;
         });
-
-        this.statuses = [
-            { label: 'Unqualified', value: 'unqualified' },
-            { label: 'Qualified', value: 'qualified' },
-            { label: 'New', value: 'new' },
-            { label: 'Negotiation', value: 'negotiation' },
-            { label: 'Renewal', value: 'renewal' },
-            { label: 'Proposal', value: 'proposal' }
-        ];
     }
 
     onGlobalFilter(table: Table, event: Event) {
@@ -74,38 +64,67 @@ export class ListaEmpleadosComponent implements OnInit {
 
     openNew() {
         this.empleado = {};
-        this.submitted = false;
         this.empleadoDialog = true;
     }
 
     hideDialog() {
         this.empleadoDialog = false;
-        this.submitted = false;
     }
 
     saveEmpleado() {
-        this.submitted = true;
+        
+        if (!this.validarCampo(this.empleado.nombre, 'Nombre')) return;
+        if (!this.validarCampo(this.empleado.apellidos, 'Apellidos')) return;
+        if (!this.validarCampo(this.empleado.puestoTrabajo, 'Puesto de Trabajo')) return;
+        if (!this.validarCampo(this.empleado.fechaNacimiento, 'Fecha de Nacimiento')) return;
 
-        /*if (this.product.name?.trim()) {
-            if (this.product.id) {
-                // @ts-ignore
-                this.product.inventoryStatus = this.product.inventoryStatus.value ? this.product.inventoryStatus.value : this.product.inventoryStatus;
-                this.products[this.findIndexById(this.product.id)] = this.product;
-                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
+
+        if (this.empleado.nombre?.trim()) {
+            if (this.empleado.id) {
+                this.empleado.puestoTrabajo = this.empleado.puestoTrabajo.value ? this.empleado.puestoTrabajo.value : this.empleado.puestoTrabajo;
+                this.empleados[this.findIndexById(this.empleado.id)] = this.empleado;
+                this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Empleado Actualizado', life: 3000 });
             } else {
-                this.product.id = this.createId();
-                this.product.code = this.createId();
-                this.product.image = 'product-placeholder.svg';
-                // @ts-ignore
-                this.product.inventoryStatus = this.product.inventoryStatus ? this.product.inventoryStatus.value : 'INSTOCK';
-                this.products.push(this.product);
-                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
+                this.empleado.id = this.createId();
+                this.empleados.push(this.empleado);
+                this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Empleado Creado', life: 3000 });
             }
 
-            this.products = [...this.products];
+            this.empleados = [...this.empleados];
             this.empleadoDialog = false;
-            this.product = {};
-        }*/
+            this.empleado = {};
+        }
+    }
+
+
+    validarCampo(valor: string | undefined, nombreCampo: string): boolean {
+        if (!valor) {
+            this.messageService.add({ severity: 'warn', summary: 'Atencion!', detail: `${nombreCampo} es requerido`, life: 3000 });
+            return false;
+        }
+        return true;
+    }
+
+
+    findIndexById(id: string): number {
+        let index = -1;
+        for (let i = 0; i < this.empleados.length; i++) {
+            if (this.empleados[i].id === id) {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    createId(): string {
+        let id = '';
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        for (let i = 0; i < 5; i++) {
+            id += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return id;
     }
 
     editEmpleado(empleado: Empleado) {
