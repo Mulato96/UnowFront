@@ -1,0 +1,66 @@
+{
+  "data": [
+      {
+          "id": 1,
+          "nombre": "Jose",
+          "apellidos": "Mulato",
+          "puestoTrabajo": {
+            "value": "full-stack developer",
+            "label": "full-stack developer"
+        },
+          "fechaNacimiento":"2015-09-13"          
+      },
+      {
+        "id": 2,
+        "nombre": "Isabella",
+        "apellidos": "Perez",
+        "puestoTrabajo": {
+          "value": "front-end developer",
+          "label": "front-end developer"
+      },
+        "fechaNacimiento":"2015-09-13"          
+    },
+    {
+        "id": 3,
+        "nombre": "Daimon",
+        "apellidos": "Choco",
+        "puestoTrabajo": {
+          "value": "sw admin",
+          "label": "sw admin"
+      },
+        "fechaNacimiento":"2015-09-13"          
+    },
+    {
+        "id": 4,
+        "nombre": "Dino",
+        "apellidos": "Saurio",
+        "puestoTrabajo": {
+          "value": "help desk",
+          "label": "help desk"
+      },
+        "fechaNacimiento":"2015-09-13"          
+    },
+    {
+        "id": 5,
+        "nombre": "Mocka",
+        "apellidos": "La loca",
+        "puestoTrabajo": {
+          "value": "scrum master",
+          "label": "scrum master"
+      },
+        "fechaNacimiento":"2015-09-13"          
+    },
+    {
+        "id": 6,
+        "nombre": "Tommy",
+        "apellidos": "Travieso",
+        "puestoTrabajo": {
+          "value": "product manager",
+          "label": "product manager"
+      },
+        "fechaNacimiento":"2015-09-13"          
+    }  
+    
+    
+  ]
+}
