@@ -63,7 +63,7 @@
 							<span class="image-text ml-2">{{empleado.apellidos}}</span>
 						</td>
 						<td style="min-width: 14rem;">
-							<span class="image-text ml-2">{{empleado.puestoTrabajo.label}}</span>
+							<span class="image-text ml-2">{{empleado.puestoTrabajo}}</span>
 						</td>
 						<td style="min-width: 10rem;">
 							{{empleado.fechaNacimiento | date: 'MM-dd-yyyy'}}
@@ -117,7 +117,7 @@
 
 		<div class="field">
 			<span class="p-float-label">
-				<p-dropdown [options]="positions" [(ngModel)]="empleado.puestoTrabajo" optionLabel="label"
+				<p-dropdown [options]="positions" [(ngModel)]="empleado.puestoTrabajo" 
 					[showClear]="true" placeholder="Puesto De Trabajo" [required]="true">
 				</p-dropdown>
 				<label for="puestoTrabajo">Puesto De Trabajo</label>

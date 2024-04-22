@@ -41,7 +41,9 @@ export class ListaEmpleadosComponent implements OnInit {
 
         this.empleadoService.getPositions().subscribe(data => {
             this.arrayPositions = data.positions;
-            this.positions = this.arrayPositions.map(item => ({ value: item, label: item }));
+            //this.positions = this.arrayPositions.map(item => ({ value: item, label: item }));
+            this.positions = data.positions;
+            console.error('quiero ver', this.positions);
         }, error => {
             console.error('Error al obtener los datos:', error);
         });
@@ -72,7 +74,7 @@ export class ListaEmpleadosComponent implements OnInit {
     }
 
     saveEmpleado() {
-        
+
         if (!this.validarCampo(this.empleado.nombre, 'Nombre')) return;
         if (!this.validarCampo(this.empleado.apellidos, 'Apellidos')) return;
         if (!this.validarCampo(this.empleado.puestoTrabajo, 'Puesto de Trabajo')) return;
