@@ -6,6 +6,10 @@ import { EmpleadoService } from 'src/app/demo/service/empleado.service';
 import { Empleado } from '../../api/empleado';
 
 
+/**
+ * Componente para mostrar una lista de empleados.
+ * Permite listar, agregar, editar y eliminar empleados.
+ */
 
 @Component({
     templateUrl: './lista-empleados.component.html',
